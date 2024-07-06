@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-lobby {
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-code {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.player-list {
+    margin-top: 20px;
+}
+
+.player-count {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.player-header, .player {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.player-name-header, .player-role-header, .player-team-header {
+    font-weight: bold;
+    color: #333;
+}
+
+.player-name, .player-role, .player-team {
+    width: 30%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.player-role, .player-team {
+    background-color: #f9f9f9;
+}
+
+.player-role, .player-name, .player-team {
+    user-select: none;
+}
