@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             const words = data.split('\n').map(word => word.trim()).filter(word => word.length > 0);
             assignWords(words);
+            assignColors();
         })
         .catch(error => console.error('Error fetching words:', error));
 
@@ -22,6 +23,7 @@ function assignWords(words) {
             container.textContent = shuffledWords[index];
         }
     });
+    assignColors();
 }
 
 // Function to shuffle an array
