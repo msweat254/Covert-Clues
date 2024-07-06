@@ -52,7 +52,7 @@ p {
     transition: transform 0.1s ease;
 }
 
-.word-container:hover {
+.word-container:hover:not(.guessed-word) {
     cursor: pointer;
     transform: scale(1.1);
 }

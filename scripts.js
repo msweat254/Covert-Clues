@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup the button event listener to assign colors
     setupColorAssignmentButton();
+    guessedWord();
 });
 
 // Function to assign words to the word-text elements
@@ -53,7 +54,7 @@ function assignColors() {
     // Assign colors to the value attribute and add corresponding classes
     wordContainers.forEach((container, index) => {
         const color = shuffledColors[index];
-        container.classList.remove('blue', 'red', 'white', 'black');
+        container.classList.remove('blue', 'red', 'white', 'black','guessed-word');
         container.setAttribute('value', color);
         container.classList.add(color);
     });
@@ -77,4 +78,14 @@ function setupColorAssignmentButton() {
             })
             .catch(error => console.error('Error fetching words:', error));
     }
+}
+
+function guessedWord() {
+    const wordContainers = document.querySelectorAll('.word-container');
+
+    wordContainers.forEach(container => {
+        container.addEventListener('click', () => {
+            container.classList.add('guessed-word');
+        });
+    }); 
 }
