@@ -1,5 +1,6 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -7,44 +8,53 @@ body {
     background-color: beige;
 }
 
-#color-shuffle-button,#word-shuffle-button {
-    height: 50px;
-    width: 100px;
+p {
+    user-select: none;
+}
+
+#button-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#color-shuffle-button, #word-shuffle-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 2 / 1;
     border: 1px solid black;
     border-radius: 10px;
     background-color: aliceblue;
-    position: fixed;
-    top: 200px;
     transition: transform 0.1s ease;
-    left: 100px;
 }
 
-#word-shuffle-button {
-    left: 250px;
-}
-
-#color-shuffle-button:hover,#word-shuffle-button:hover {
+#color-shuffle-button:hover, #word-shuffle-button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
 #grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 100px); /* 5 columns of 100px each */
-    grid-template-rows: repeat(5, 50px);    /* 5 rows of 50px each */
-    gap: 12px;                               /* 5px gap between boxes */
+    grid-template-columns: repeat(5, minmax(10%, 1fr)); /* Responsive columns */
+    gap: 12px;
+    width: 80%; /* Adjust the width of the container */
 }
 
 .word-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 2 / 1;
     border: 1px solid black;
     border-radius: 10px;
     background-color: aliceblue;
-    transition: transform 0.1s ease; /* Smooth transition for the scale effect */
+    transition: transform 0.1s ease;
 }
 
 .word-container:hover {
     cursor: pointer;
-    transform: scale(1.1); /* Scale the box to 110% of its original size */
+    transform: scale(1.1);
 }
 
 .word-text {
