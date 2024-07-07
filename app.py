@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, send_from_directory, url_for,
 from flask_sqlalchemy import SQLAlchemy
 import random
 import string
+import json
 
 # Helper functions
 
@@ -61,8 +62,8 @@ class Game(db.Model):
     word14color = db.Column(db.String)
     word14status = db.Column(db.Boolean)
     word15= db.Column(db.String)
-    word15olor = db.Column(db.String)
-    word15tatus = db.Column(db.Boolean)
+    word15color = db.Column(db.String)
+    word15status = db.Column(db.Boolean)
     word16 = db.Column(db.String)
     word16color = db.Column(db.String)
     word16status = db.Column(db.Boolean)
@@ -109,12 +110,36 @@ def serve_words():
 @app.route('/api/create_game')
 def get_data():
     id = generate_game_id()
-    # Add empty row to database.
-    new_game = Game(game_code=id)
+    word_color_pairs = assign_words_and_colors()
+    
+    game_data = {
+        'game_code': id
+    }
+    for i, (word, color) in enumerate(word_color_pairs, 1):
+        game_data[f'word{i}'] = word
+        game_data[f'word{i}color'] = color
+        game_data[f'word{i}status'] = False
+
+    new_game = Game(**game_data)
     db.session.add(new_game)
     db.session.commit()
-    # Redirect to codemaster/{id}
+    
     return redirect(url_for('game_created', game_code=id))
+
+def assign_words_and_colors():
+    with open('/Users/michaelsweat1/Documents/Python Scripts/Covert Clues/static/words.txt', 'r') as file:
+        words = [line.strip() for line in file if line.strip()]
+
+    random.shuffle(words)
+    colors = (
+        ['blue'] * 8 +
+        ['red'] * 8 +
+        ['white'] * 8 +
+        ['black']
+    )
+    random.shuffle(colors)
+
+    return list(zip(words[:25], colors))
 
 @app.route('/game_created/<game_code>')
 def game_created(game_code):
