@@ -149,6 +149,10 @@ def game_created(game_code):
 def test():
     return generate_game_id()
 
+@app.route('/game/<game_code>')
+def play_game(game_code):
+    return render_template('guesser.html')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
