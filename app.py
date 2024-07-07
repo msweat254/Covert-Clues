@@ -61,7 +61,7 @@ class Game(db.Model):
     word14 = db.Column(db.String)
     word14color = db.Column(db.String)
     word14status = db.Column(db.Boolean)
-    word15= db.Column(db.String)
+    word15 = db.Column(db.String)
     word15color = db.Column(db.String)
     word15status = db.Column(db.Boolean)
     word16 = db.Column(db.String)
@@ -95,6 +95,10 @@ class Game(db.Model):
     word25color = db.Column(db.String)
     word25status = db.Column(db.Boolean)
 
+def get_game_by_id(game_code):
+    game = Game.query.filter(Game.game_code == game_code).first()
+    return game
+
 @app.route('/')
 def index():
     return render_template('landing-page.html')
@@ -126,8 +130,93 @@ def get_data():
     
     return redirect(url_for('play_game', game_code=id))
 
+@app.route('/api/get_game_data/<game_code>')
+def get_game_data(game_code):
+    # Get data from database.
+    game = get_game_by_id(game_code)
+    info = {
+        "id": game_code,
+        "word1": game.word1,
+        "word1color": game.word1color,
+        "word1status": game.word1status,
+        "word2": game.word2,
+        "word2color": game.word2color,
+        "word2status": game.word2status,
+        "word3": game.word3,
+        "word3color": game.word3color,
+        "word3status": game.word3status,
+        "word4": game.word4,
+        "word4color": game.word4color,
+        "word4status": game.word4status,
+        "word5": game.word5,
+        "word5color": game.word5color,
+        "word5status": game.word5status,
+        "word6": game.word6,
+        "word6color": game.word6color,
+        "word6status": game.word6status,
+        "word7": game.word7,
+        "word7color": game.word7color,
+        "word7status": game.word7status,
+        "word8": game.word8,
+        "word8color": game.word8color,
+        "word8status": game.word8status,
+        "word9": game.word9,
+        "word9color": game.word9color,
+        "word9status": game.word9status,
+        "word10": game.word10,
+        "word10color": game.word10color,
+        "word10status": game.word10status,
+        "word11": game.word11,
+        "word11color": game.word11color,
+        "word11status": game.word11status,
+        "word12": game.word12,
+        "word12color": game.word12color,
+        "word12status": game.word12status,
+        "word13": game.word13,
+        "word13color": game.word13color,
+        "word13status": game.word13status,
+        "word14": game.word14,
+        "word14color": game.word14color,
+        "word14status": game.word14status,
+        "word15": game.word15,
+        "word15color": game.word15color,
+        "word15status": game.word15status,
+        "word16": game.word16,
+        "word16color": game.word16color,
+        "word16status": game.word16status,
+        "word17": game.word17,
+        "word17color": game.word17color,
+        "word17status": game.word17status,
+        "word18": game.word18,
+        "word18color": game.word18color,
+        "word18status": game.word18status,
+        "word19": game.word19,
+        "word19color": game.word19color,
+        "word19status": game.word19status,
+        "word20": game.word20,
+        "word20color": game.word20color,
+        "word20status": game.word20status,
+        "word21": game.word21,
+        "word21color": game.word21color,
+        "word21status": game.word21status,
+        "word22": game.word22,
+        "word22color": game.word22color,
+        "word22status": game.word22status,
+        "word23": game.word23,
+        "word23color": game.word23color,
+        "word23status": game.word23status,
+        "word24": game.word24,
+        "word24color": game.word24color,
+        "word24status": game.word24status,
+        "word25": game.word25,
+        "word25color": game.word25color,
+        "word25status": game.word25status
+    }
+    print(jsonify(info))
+    return(jsonify(info))
+
 def assign_words_and_colors():
-    with open('/Users/michaelsweat1/Documents/Python Scripts/Covert Clues/static/words.txt', 'r') as file:
+    with open('./static/words.txt', 'r') as file:
         words = [line.strip() for line in file if line.strip()]
 
     random.shuffle(words)
@@ -152,6 +241,7 @@ def test():
 @app.route('/game/<game_code>')
 def play_game(game_code):
     return render_template('guesser.html')
+
 
 if __name__ == '__main__':
     with app.app_context():
