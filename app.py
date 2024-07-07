@@ -124,7 +124,7 @@ def get_data():
     db.session.add(new_game)
     db.session.commit()
     
-    return redirect(url_for('game_created', game_code=id))
+    return redirect(url_for('play_game', game_code=id))
 
 def assign_words_and_colors():
     with open('/Users/michaelsweat1/Documents/Python Scripts/Covert Clues/static/words.txt', 'r') as file:
