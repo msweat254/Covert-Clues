@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing-page-styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Covert Clues</h1>
+        <div class="buttons">
+            <button id="join-game-button">Join Game</button>
+            <button id="host-game-button" onclick="window.location.href='/api/create_game'">Host Game</button>
+        </div>
+        <div id="join-game-form" class="hidden">
+            <input type="text" id="game-code-input" placeholder="Enter game code">
+            <button id="join-button">Join</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/landing-page-scripts.js') }}"></script>
+</body>
+</html>

@@ -128,7 +128,7 @@ def get_data():
     db.session.add(new_game)
     db.session.commit()
     
-    return redirect(url_for('play_game', game_code=id))
+    return redirect(url_for('codemaster', game_code=id))
 
 @app.route('/api/get_game_data/<game_code>')
 def get_game_data(game_code):

@@ -2,13 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Replace <game_code> with the actual game code
     const currentURL = document.URL;
     const gameCode = currentURL.split('/', -1)[4];
+    document.getElementById('game-code').textContent = 'Game Code: '+gameCode
     console.log('Current URL: ' + currentURL);
     console.log('Current game code: ' + gameCode);
 
     const allContainers = document.querySelectorAll('.word-container');
 
     function updateWordStatus() {
-        console.log('Updated')
+        //console.log('Updated')
         fetch(`/api/get_game_data/${gameCode}`)
             .then(response => response.json())
             .then(data => {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Update word status every 500 milliseconds
-    //setInterval(updateWordStatus, 1000);
+    //setInterval(updateWordStatus, 500);
 
     // Initial update
     updateWordStatus();
