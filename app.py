@@ -103,8 +103,8 @@ def get_game_by_id(game_code):
 def index():
     return render_template('landing-page.html')
 
-@app.route('/codemaster')
-def codemaster():
+@app.route('/codemaster/<game_code>')
+def codemaster(game_code):
     return render_template('hint-giver.html')
 
 @app.route('/words.txt')
