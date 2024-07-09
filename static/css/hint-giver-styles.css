@@ -85,3 +85,14 @@ p {
     background-color: black;
     color: white;
 }
+
+#game-code-container {
+    position: fixed;
+    top: 0;
+}
+
+#game-code {
+    font-size: 30px;
+    font-weight: bold;
+    user-select: auto;
+}

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/guesser-styles.css') }}">
 </head>
 <body>
+    <div id="game-code-container"><p id="game-code"></p></div>
+    <div class="video-overlay"><video poster><source src="{{ url_for('static', filename='videos/explosion-unscreen.gif') }}" type="video/gif"></video></div>
     <div id="grid-container">
         <div class="word-container" id="1" value=""><div class=""><p class="word-text">Test</p></div></div>
         <div class="word-container" id="2" value=""><div class=""><p class="word-text">Test</p></div></div>

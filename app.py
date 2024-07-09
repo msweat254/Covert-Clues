@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, send_from_directory, url_for, redirect
+from flask import Flask, jsonify, render_template, send_from_directory, url_for, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 import random
 import string
@@ -103,8 +103,8 @@ def get_game_by_id(game_code):
 def index():
     return render_template('landing-page.html')
 
-@app.route('/codemaster')
-def codemaster():
+@app.route('/codemaster/<game_code>')
+def codemaster(game_code):
     return render_template('hint-giver.html')
 
 @app.route('/words.txt')
@@ -128,7 +128,7 @@ def get_data():
     db.session.add(new_game)
     db.session.commit()
     
-    return redirect(url_for('play_game', game_code=id))
+    return redirect(url_for('codemaster', game_code=id))
 
 @app.route('/api/get_game_data/<game_code>')
 def get_game_data(game_code):
@@ -257,6 +257,38 @@ def test():
 @app.route('/game/<game_code>')
 def play_game(game_code):
     return render_template('guesser.html')
+
+@app.route('/api/process_data', methods=['POST'])
+def process_data():
+    data = request.get_json()
+    game_code = data.get('game_code')  # Get the game code from the JSON data
+    word_id = data.get('value')  # Get the word ID from the JSON data
+
+    # Map word_id to the correct word_status column
+    word_column = f'word{word_id}status'
+
+    # Update the word status in the database
+    game = get_game_by_id(game_code)
+    
+    if game:
+        setattr(game, word_column, True)
+        db.session.commit()
+        print(f"Updated word ID {word_id} to status 1 for game {game_code}")
+
+        # Example response
+        response = {
+            'status': 'success',
+            'updated_word_id': word_id,
+            'game_code': game_code
+        }
+    else:
+        response = {
+            'status': 'error',
+            'message': 'Game with code, '+ game_code+' not found'
+        }
+
+    return jsonify(response)
+
 
 
 if __name__ == '__main__':
